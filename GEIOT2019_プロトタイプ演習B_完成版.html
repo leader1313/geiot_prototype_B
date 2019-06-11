@@ -74,7 +74,7 @@
     
     // 送信ボタンがタップされた時
     function sendMessage() {
-        var userName = $("#user-name").val(); // {address ID tag같은거}.val()
+        var userName = $("#user-name").val(); // {address ID tag같은거}.val() 要素のvalue値を取得します。
         var sendMessage = $("#send-message").val();
         if(userName == "") { userName = "anonymous user"; }
         if(sendMessage == "") { sendMessage = "(∩´∀｀)∩ﾜｰｲ"; }
@@ -83,7 +83,7 @@
     
     // メッセージを送信する
     function publishMessage(userName, sendMessage) {
-        var message = new Paho.MQTT.Message(JSON.stringify({userName: userName, sendMessage: sendMessage}));
+        var message = new Paho.MQTT.Message(JSON.stringify({userName: userName, sendMessage: sendMessage}));//オブジェクトをJSONにエンコード(encode)する方法
         message.destinationName = topic;
         client.send(message)
     }
@@ -92,7 +92,7 @@
         console.log(message);
         console.log(message.payloadString);
         try {
-            var json = JSON.parse(message.payloadString);
+            var json = JSON.parse(message.payloadString);//配列(Array)をJSONにエンコード(encode)する方法
             
             var cardHTML = '<li>'
                          + '  <div>'
