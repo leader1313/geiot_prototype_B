@@ -43,9 +43,9 @@
  // var userId   = '{{user-id}}';  // 今回は使わない
  // var password = '{{password}}'; // 今回は使わない
     var clientId = 'user_' + Date.now();
-    var uri      = '{{broker_host}}';
-    var port     = 1884;
-    var topic    = 'geiot/chat';
+    var uri      = '{{broker_host}}';//BrokerhostのIPを入力
+    var port     = 1884; //input the port
+    var topic    = 'geiot/chat'; //name of topic
     
     var client = new Paho.MQTT.Client(uri, port, clientId);
     
@@ -54,7 +54,7 @@
      // userName: userId,   // 今回は使わない
      // password: password, // 今回は使わない
         onSuccess: onConnect, 
-        onFailure: function(err) { console.log(JSON.stringify(err, undefined, 2)); }
+        onFailure: function(err) { console.log(JSON.stringify(err, undefined, 2)); }//JSON.stringify mean json型の変数を文字列に変換する
     });
     
     client.onConnectionLost = onConnectionLost;
@@ -63,8 +63,8 @@
     // 接続が確立された時
     function onConnect() {
         console.log("onConnect: " + uri);
-        client.subscribe(topic);
-        publishMessage("System Master", "New user logged in to GEIOT CHAT!");
+        client.subscribe(topic);　// subscribe 생성
+        publishMessage("System Master", "New user logged in to GEIOT CHAT!");//publishMessage 함수참조 밑에 있음 85:
     }
     
     // 接続が失われた時
@@ -74,7 +74,7 @@
     
     // 送信ボタンがタップされた時
     function sendMessage() {
-        var userName = $("#user-name").val();
+        var userName = $("#user-name").val(); // {address ID tag같은거}.val()
         var sendMessage = $("#send-message").val();
         if(userName == "") { userName = "anonymous user"; }
         if(sendMessage == "") { sendMessage = "(∩´∀｀)∩ﾜｰｲ"; }
